@@ -1,11 +1,8 @@
-
 const mongoose = require("mongoose");
-
-const MenuSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    category: { type: String, required: true },
-    price: { type: Number, required: true },
-    availability: { type: Boolean, default: true },
+const orderSchema = new mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Menu" }],
+    total: Number,
+    status: { type: String, enum: ["Pending", "Completed"], default: "Pending" },
 });
-
-module.exports = mongoose.model("Menu", MenuSchema);
+module.exports = mongoose.model("Order", orderSchema);
